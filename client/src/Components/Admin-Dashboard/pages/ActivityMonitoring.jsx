@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-// import { FaceMesh } from "@mediapipe/face_mesh";
-// import { Camera } from "@mediapipe/camera_utils";
 import * as cocoSsd from '@tensorflow-models/coco-ssd';
 import '@tensorflow/tfjs';
 import '../css/ActivityMonitoring.css';
+
+// MediaPipe loaded from CDN via index.html — available as window globals
+const getFaceMesh = () => window.FaceMesh;
+const getCamera = () => window.Camera;
 
 const SEVERITY = {
     error: {
@@ -60,7 +62,7 @@ const ActivityMonitoring = () => {
     const canvasRef = useRef(null);
     const cameraRef = useRef(null);
     const modelRef = useRef(null);
-    const lastActiveRef = useRef(() => Date.now());
+    const lastActiveRef = useRef(Date.now());
     const sessionStartRef = useRef(null);
     const workingTicksRef = useRef(0);
     const totalTicksRef = useRef(0);
@@ -87,7 +89,8 @@ const ActivityMonitoring = () => {
     useEffect(() => {
         cocoSsd.load().then((m) => {
             modelRef.current = m;
-        });
+            console.log('COCO-SSD model loaded');
+        }).catch(err => console.error('Failed to load COCO-SSD:', err));
     }, []);
 
     useEffect(() => {
@@ -118,128 +121,151 @@ const ActivityMonitoring = () => {
         [],
     );
 
-    // const startCamera = () => {
-    //     if (camActive) return;
-    //     workingTicksRef.current = 0;
-    //     totalTicksRef.current = 0;
-    //     sessionStartRef.current = Date.now();
-    //     lastLogRef.current = { desc: "", time: 0 };
-    //     setFlagCount(0);
-    //     setEvents([]);
-    //     addEvent("Session started", "info", 0);
+    const startCamera = useCallback(() => {
+        if (camActive) return;
 
-    //     const faceMesh = new FaceMesh({
-    //         locateFile: (file) =>
-    //             `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`,
-    //     });
-    //     faceMesh.setOptions({
-    //         maxNumFaces: 2,
-    //         refineLandmarks: true,
-    //         minDetectionConfidence: 0.5,
-    //     });
+        const FaceMesh = getFaceMesh();
+        const Camera = getCamera();
+        if (!FaceMesh || !Camera) {
+            setWarning('MediaPipe libraries not loaded. Please refresh the page.');
+            return;
+        }
 
-    //     faceMesh.onResults(async (results) => {
-    //         const canvas = canvasRef.current;
-    //         if (!canvas) return;
-    //         const ctx = canvas.getContext("2d");
-    //         canvas.width = videoRef.current.videoWidth;
-    //         canvas.height = videoRef.current.videoHeight;
-    //         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        workingTicksRef.current = 0;
+        totalTicksRef.current = 0;
+        sessionStartRef.current = Date.now();
+        lastLogRef.current = { desc: '', time: 0 };
+        lastActiveRef.current = Date.now();
+        setFlagCount(0);
+        setEvents([]);
+        addEvent('Session started', 'info', 0);
 
-    //         totalTicksRef.current += 1;
+        const faceMesh = new FaceMesh({
+            locateFile: (file) =>
+                `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`,
+        });
+        faceMesh.setOptions({
+            maxNumFaces: 2,
+            refineLandmarks: true,
+            minDetectionConfidence: 0.5,
+        });
 
-    //         let phoneDetected = false;
-    //         if (modelRef.current) {
-    //             const predictions = await modelRef.current.detect(
-    //                 videoRef.current,
-    //             );
-    //             const phone = predictions.find((p) => p.class === "cell phone");
-    //             if (predictions.length > 0)
-    //                 setConfObj(
-    //                     Math.round(
-    //                         Math.max(...predictions.map((p) => p.score)) * 100,
-    //                     ),
-    //                 );
+        faceMesh.onResults(async (results) => {
+            const canvas = canvasRef.current;
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            canvas.width = videoRef.current.videoWidth;
+            canvas.height = videoRef.current.videoHeight;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    //             if (phone) {
-    //                 phoneDetected = true;
-    //                 setWarning("Phone detected — please put it away");
-    //                 setStatus("Using Phone");
-    //                 ctx.strokeStyle = "#ef4444";
-    //                 ctx.lineWidth = 2;
-    //                 ctx.strokeRect(...phone.bbox);
-    //                 addEvent("Phone spotted in frame", "error");
-    //             }
-    //         }
+            totalTicksRef.current += 1;
 
-    //         const numFaces = results.multiFaceLandmarks.length;
-    //         setFaceCount(numFaces);
-    //         setConfFace(numFaces > 0 ? Math.min(94, 70 + numFaces * 12) : 0);
+            let phoneDetected = false;
+            if (modelRef.current) {
+                try {
+                    const predictions = await modelRef.current.detect(
+                        videoRef.current,
+                    );
+                    const phone = predictions.find(
+                        (p) => p.class === 'cell phone',
+                    );
+                    if (predictions.length > 0)
+                        setConfObj(
+                            Math.round(
+                                Math.max(...predictions.map((p) => p.score)) *
+                                    100,
+                            ),
+                        );
 
-    //         if (numFaces > 1) {
-    //             setWarning("Multiple people in frame");
-    //             setStatus("Multiple Faces");
-    //             addEvent("More than one face detected", "error");
-    //         } else if (numFaces === 0) {
-    //             setStatus("No Face Detected");
-    //             setWarning("Can't see your face — please move closer");
-    //             setEyeState("—");
-    //             setConfGaze(0);
-    //             addEvent("Face went out of frame", "warning");
-    //         } else if (!phoneDetected) {
-    //             const face = results.multiFaceLandmarks[0];
-    //             const eyeOpen = Math.abs(face[159].y - face[145].y) > 0.015;
-    //             const lookingAway = face[1].x < 0.3 || face[1].x > 0.7;
-    //             setConfGaze(
-    //                 Math.round(
-    //                     Math.min(95, 50 + Math.abs(face[1].x - 0.5) * 80),
-    //                 ),
-    //             );
+                    if (phone) {
+                        phoneDetected = true;
+                        setWarning('Phone detected — please put it away');
+                        setStatus('Using Phone');
+                        ctx.strokeStyle = '#ef4444';
+                        ctx.lineWidth = 2;
+                        ctx.strokeRect(...phone.bbox);
+                        addEvent('Phone spotted in frame', 'error');
+                    }
+                } catch (e) {
+                    // detection can fail on some frames, ignore
+                }
+            }
 
-    //             if (!eyeOpen) {
-    //                 eyesClosedFrames.current += 1;
-    //                 if (eyesClosedFrames.current >= EYE_CLOSED_THRESHOLD) {
-    //                     setStatus("Eyes Closed");
-    //                     setEyeState("Closed");
-    //                     setWarning("Your eyes have been closed for a while");
-    //                     addEvent("Eyes closed for too long", "warning");
-    //                 }
-    //             } else if (lookingAway) {
-    //                 eyesClosedFrames.current = 0;
-    //                 setStatus("Looking Away");
-    //                 setEyeState("Open");
-    //                 setWarning("Please look at the screen");
-    //                 addEvent("Looking away from screen", "warning");
-    //             } else {
-    //                 eyesClosedFrames.current = 0;
-    //                 setStatus("Focused");
-    //                 setEyeState("Open");
-    //                 setWarning("");
-    //                 lastActiveRef.current = Date.now();
-    //                 workingTicksRef.current += 1;
-    //                 addEvent("Back on track", "info", 12000);
-    //             }
-    //         }
+            const numFaces = results.multiFaceLandmarks
+                ? results.multiFaceLandmarks.length
+                : 0;
+            setFaceCount(numFaces);
+            setConfFace(numFaces > 0 ? Math.min(94, 70 + numFaces * 12) : 0);
 
-    //         if (totalTicksRef.current > 0)
-    //             setFocusPct(
-    //                 Math.round(
-    //                     (workingTicksRef.current / totalTicksRef.current) * 100,
-    //                 ),
-    //             );
-    //     });
+            if (numFaces > 1) {
+                setWarning('Multiple people in frame');
+                setStatus('Multiple Faces');
+                addEvent('More than one face detected', 'error');
+            } else if (numFaces === 0) {
+                setStatus('No Face Detected');
+                setWarning("Can't see your face — please move closer");
+                setEyeState('—');
+                setConfGaze(0);
+                addEvent('Face went out of frame', 'warning');
+            } else if (!phoneDetected) {
+                const face = results.multiFaceLandmarks[0];
+                const eyeOpen =
+                    Math.abs(face[159].y - face[145].y) > 0.015;
+                const lookingAway = face[1].x < 0.3 || face[1].x > 0.7;
+                setConfGaze(
+                    Math.round(
+                        Math.min(
+                            95,
+                            50 + Math.abs(face[1].x - 0.5) * 80,
+                        ),
+                    ),
+                );
 
-    //     const camera = new Camera(videoRef.current, {
-    //         onFrame: async () => {
-    //             await faceMesh.send({ image: videoRef.current });
-    //         },
-    //         width: 640,
-    //         height: 480,
-    //     });
-    //     camera.start();
-    //     cameraRef.current = camera;
-    //     setCamActive(true);
-    // };
+                if (!eyeOpen) {
+                    eyesClosedFrames.current += 1;
+                    if (eyesClosedFrames.current >= EYE_CLOSED_THRESHOLD) {
+                        setStatus('Eyes Closed');
+                        setEyeState('Closed');
+                        setWarning('Your eyes have been closed for a while');
+                        addEvent('Eyes closed for too long', 'warning');
+                    }
+                } else if (lookingAway) {
+                    eyesClosedFrames.current = 0;
+                    setStatus('Looking Away');
+                    setEyeState('Open');
+                    setWarning('Please look at the screen');
+                    addEvent('Looking away from screen', 'warning');
+                } else {
+                    eyesClosedFrames.current = 0;
+                    setStatus('Focused');
+                    setEyeState('Open');
+                    setWarning('');
+                    lastActiveRef.current = Date.now();
+                    workingTicksRef.current += 1;
+                    addEvent('Back on track', 'info', 12000);
+                }
+            }
+
+            if (totalTicksRef.current > 0)
+                setFocusPct(
+                    Math.round(
+                        (workingTicksRef.current / totalTicksRef.current) *
+                            100,
+                    ),
+                );
+        });
+
+        const camera = new Camera(videoRef.current, {
+            onFrame: async () => {
+                await faceMesh.send({ image: videoRef.current });
+            },
+            width: 640,
+            height: 480,
+        });
+        camera.start();
+        cameraRef.current = camera;
+        setCamActive(true);
+    }, [camActive, addEvent]);
 
     const stopCamera = () => {
         if (cameraRef.current) cameraRef.current.stop();
@@ -255,6 +281,13 @@ const ActivityMonitoring = () => {
         addEvent('Session ended', 'info', 0);
     };
 
+    // Cleanup on unmount
+    useEffect(() => {
+        return () => {
+            if (cameraRef.current) cameraRef.current.stop();
+        };
+    }, []);
+
     const statusColor =
         status === 'Focused'
             ? 'c-green'
@@ -267,8 +300,7 @@ const ActivityMonitoring = () => {
             : eyeState === 'Closed'
               ? 'c-red'
               : 'c-muted';
-    const focusColor =
-        focusPct >= 70 ? '#16a34a' : focusPct >= 40 ? '#d97706' : '#dc2626';
+    const focusColor = focusPct >= 70 ? '#16a34a' : focusPct >= 40 ? '#d97706' : '#dc2626';
 
     return (
         <div className="am-root">
@@ -385,7 +417,7 @@ const ActivityMonitoring = () => {
                     <div className="am-controls">
                         <button
                             className="am-btn am-btn-start"
-                            // onClick={startCamera}
+                            onClick={startCamera}
                             disabled={camActive}
                         >
                             Start Camera

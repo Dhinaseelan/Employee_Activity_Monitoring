@@ -1,122 +1,54 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Mono:wght@300;400;500&display=swap');
+/* ─── Add Employee — Dark Theme ─────────────────────── */
 
-/* ─── CSS Variables ─────────────────────────────────── */
-:root {
-    --black: #0a0a0a;
-    --charcoal: #1c1c1c;
-    --graphite: #2e2e2e;
-    --mid: #6b6b6b;
-    --silver: #b0b0b0;
-    --smoke: #d8d8d8;
-    --off-white: #f4f4f2;
-    --white: #ffffff;
-    --accent: #0a0a0a;
-    --radius-sm: 3px;
-    --radius-md: 6px;
-    --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* ─── Form Container ────────────────────────────────── */
 .employee-form {
     min-height: 90vh;
     margin: 10px auto;
     padding: 36px 40px;
-    border: 1px solid var(--smoke);
-    border-top: 4px solid var(--black);
-    border-radius: 0 0 var(--radius-md) var(--radius-md);
-    background-color: var(--white);
-    box-shadow:
-        0 1px 3px rgba(0, 0, 0, 0.06),
-        0 8px 24px rgba(0, 0, 0, 0.08);
-    font-family: 'DM Mono', monospace;
-    position: relative;
-    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--bg-surface);
+    max-width: 960px;
 }
 
-/* subtle ruled-paper texture */
-.employee-form::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: repeating-linear-gradient(
-        to bottom,
-        transparent 0px,
-        transparent 31px,
-        rgba(0, 0, 0, 0.025) 31px,
-        rgba(0, 0, 0, 0.025) 32px
-    );
-    pointer-events: none;
-    z-index: 0;
-}
-
-.employee-form > * {
-    position: relative;
-    z-index: 1;
-}
-
-/* ─── Heading ───────────────────────────────────────── */
 .addemp-heading {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
     margin-bottom: 32px;
     padding-bottom: 18px;
-    border-bottom: 1px solid var(--smoke);
-    height: auto;
+    border-bottom: 1px solid var(--border);
 }
 
 .addemp-heading h5 {
     margin: 0;
-    font-family: 'Playfair Display', serif;
-    font-size: 28px;
+    font-size: 22px;
     font-weight: 700;
-    color: var(--black);
-    letter-spacing: -0.5px;
-    line-height: 1;
+    color: var(--text-primary);
 }
 
-/* small decorative label beside title */
 .addemp-heading h5::after {
-    content: ' — FORM';
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    font-weight: 400;
-    color: var(--silver);
-    letter-spacing: 2px;
-    vertical-align: middle;
-    margin-left: 10px;
+    content: '';
 }
 
-/* ─── Fieldset ──────────────────────────────────────── */
 .employee-form fieldset {
     padding: 28px 32px;
-    border: 1px solid var(--smoke);
-    border-left: 3px solid var(--black);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
     border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    background: var(--off-white);
+    background: var(--bg-primary);
     margin-bottom: 20px;
-    transition:
-        border-color var(--transition),
-        box-shadow var(--transition);
-}
-
-.employee-form fieldset:focus-within {
-    border-left-color: var(--charcoal);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
 }
 
 .employee-form legend {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 3px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
-    color: var(--mid);
+    color: var(--accent);
     padding: 0 8px;
-    background: var(--off-white);
+    background: var(--bg-primary);
 }
 
-/* ─── Fieldset Input Layout ─────────────────────────── */
 .fieldset-input {
     display: flex;
     flex-wrap: wrap;
@@ -124,7 +56,6 @@
     align-items: flex-start;
 }
 
-/* ─── Form Groups ───────────────────────────────────── */
 .employee-form .form-group {
     display: flex;
     flex-direction: column;
@@ -133,62 +64,45 @@
 
 .employee-form label {
     display: block;
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 2px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
     text-transform: uppercase;
-    color: var(--graphite);
+    color: var(--text-muted);
     margin-bottom: 8px;
 }
 
-/* ─── Inputs & Selects ──────────────────────────────── */
 .employee-form input,
 .employee-form select {
     width: 300px;
     padding: 11px 14px;
-    font-family: 'DM Mono', monospace;
     font-size: 14px;
-    font-weight: 400;
-    color: var(--black);
-    background-color: var(--white);
-    border: 1px solid var(--smoke);
-    border-bottom: 2px solid var(--graphite);
+    color: var(--text-primary);
+    background: var(--bg-surface-hover);
+    border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     outline: none;
     box-sizing: border-box;
-    transition:
-        border-color var(--transition),
-        box-shadow var(--transition),
-        background var(--transition);
-    -webkit-appearance: none;
-    appearance: none;
+    transition: border var(--transition), box-shadow var(--transition);
 }
 
 .employee-form input::placeholder {
-    color: var(--silver);
-    font-size: 13px;
+    color: var(--text-muted);
 }
 
 .employee-form input:hover,
 .employee-form select:hover {
-    border-color: var(--mid);
-    border-bottom-color: var(--black);
+    border-color: var(--border-hover);
 }
 
 .employee-form input:focus,
 .employee-form select:focus {
-    border-color: var(--black);
-    border-bottom-color: var(--black);
-    background: var(--off-white);
-    box-shadow:
-        0 2px 0 var(--black),
-        inset 0 1px 3px rgba(0, 0, 0, 0.04);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-bg);
 }
 
-/* ─── Custom Select Arrow ───────────────────────────── */
 .employee-form .form-group select {
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%230a0a0a' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23818cf8' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 12px center;
     background-size: 9px;
@@ -196,7 +110,6 @@
     cursor: pointer;
 }
 
-/* ─── Submit Button ─────────────────────────────────── */
 .form-btn {
     width: 100%;
     display: flex;
@@ -204,49 +117,27 @@
     margin-top: 8px;
 }
 
-.employee-form button {
+.employee-form button[type="submit"],
+.employee-form button:not([type]) {
     width: 180px;
-    padding: 14px 0;
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 3px;
+    padding: 12px 0;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
     text-transform: uppercase;
-    color: var(--white);
-    background-color: var(--black);
-    border: 2px solid var(--black);
+    color: #fff;
+    background: var(--accent);
+    border: none;
     border-radius: var(--radius-sm);
     cursor: pointer;
-    transition:
-        background var(--transition),
-        color var(--transition),
-        transform var(--transition);
-    position: relative;
-    overflow: hidden;
-}
-
-.employee-form button::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--white);
-    transform: translateX(-102%);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 0;
-}
-
-.employee-form button span {
-    position: relative;
-    z-index: 1;
+    transition: all var(--transition);
 }
 
 .employee-form button:hover {
-    color: var(--black);
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(129, 140, 248, 0.3);
 }
-
-/* .employee-form button:hover::after {
-        transform: translateX(0);
-    } */
 
 .employee-form button:active {
     transform: scale(0.98);
@@ -263,10 +154,9 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(10, 10, 10, 0.45);
-    backdrop-filter: blur(3px);
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
     z-index: 1000;
-    animation: fadeIn 0.2s ease;
 }
 
 .popup-content {
@@ -276,89 +166,66 @@
     gap: 16px;
     width: 480px;
     padding: 16px 20px;
-    background: var(--white);
+    background: var(--bg-elevated);
     border-radius: var(--radius-md);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
-    border-left: 4px solid var(--black);
-    animation: slideDown 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    border-left: 4px solid var(--accent);
+    animation: slideDown 0.25s ease;
 }
 
 .popup-content p {
     margin: 0;
-    font-family: 'DM Mono', monospace;
     font-size: 13px;
-    color: var(--charcoal);
-    letter-spacing: 0.3px;
+    color: var(--text-secondary);
 }
 
 .popup-content.success {
-    border-left-color: var(--black);
+    border-left-color: var(--success);
 }
 
 .popup-content.success p::before {
     content: '✓  ';
     font-weight: 700;
-    color: var(--black);
+    color: var(--success);
 }
 
 .popup-content.error {
-    border-left-color: var(--graphite);
+    border-left-color: var(--danger);
 }
 
 .popup-content.error p::before {
     content: '✕  ';
     font-weight: 700;
-    color: var(--graphite);
+    color: var(--danger);
 }
 
 .popup-content button {
     width: 32px;
     height: 32px;
     padding: 0;
-    border: 1px solid var(--smoke);
+    border: 1px solid var(--border);
     cursor: pointer;
     border-radius: var(--radius-sm);
-    background-color: var(--white);
-    color: var(--mid);
+    background: var(--bg-surface);
+    color: var(--text-muted);
     font-size: 16px;
-    line-height: 1;
     flex-shrink: 0;
-    transition:
-        background var(--transition),
-        color var(--transition);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .popup-content button:hover {
-    background-color: var(--black);
-    color: var(--white);
-    border-color: var(--black);
-}
-
-/* ─── Animations ────────────────────────────────────── */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
 }
 
 @keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-12px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(-12px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-/* ─── Responsive ────────────────────────────────────── */
 @media (max-width: 1530px) {
     .employee-form input,
     .employee-form select {
@@ -371,26 +238,16 @@
     .employee-form select {
         width: 200px;
     }
-    fieldset {
-        padding: 0;
-    }
     .employee-form {
-        width: 100vw;
+        width: 100%;
     }
 }
 
 @media (max-width: 1000px) {
     .employee-form {
         width: 100%;
-        height: 100%;
         margin-left: 20px;
         padding: 24px 20px;
-    }
-    .whole {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }
     .employee-form input,
     .employee-form select {

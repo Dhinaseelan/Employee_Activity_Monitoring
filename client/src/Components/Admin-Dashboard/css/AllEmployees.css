@@ -1,107 +1,53 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Mono:wght@300;400;500&display=swap');
+/* ─── All Employees — Dark Theme ─────────────────────── */
 
-/* ─── Variables ──────────────────────────────────────── */
-:root {
-    --black: #0a0a0a;
-    --charcoal: #1c1c1c;
-    --graphite: #2e2e2e;
-    --mid: #6b6b6b;
-    --silver: #b0b0b0;
-    --smoke: #d8d8d8;
-    --off-white: #f4f4f2;
-    --white: #ffffff;
-    --radius-sm: 3px;
-    --radius-md: 6px;
-    --transition: 0.18s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* ─── Page Wrapper ───────────────────────────────────── */
 .add-employee-page {
     padding: 32px 36px;
-    background-color: var(--white);
-    border-top: 4px solid var(--black);
-    border-radius: 0 0 var(--radius-md) var(--radius-md);
-    font-family: 'DM Mono', monospace;
-    box-shadow:
-        0 1px 3px rgba(0, 0, 0, 0.05),
-        0 8px 24px rgba(0, 0, 0, 0.08);
-    position: relative;
-    overflow: hidden;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    margin: 10px 20px;
 }
 
-/* ruled-paper texture */
-.add-employee-page::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: repeating-linear-gradient(
-        to bottom,
-        transparent 0px,
-        transparent 31px,
-        rgba(0, 0, 0, 0.022) 31px,
-        rgba(0, 0, 0, 0.022) 32px
-    );
-    pointer-events: none;
-    z-index: 0;
-}
-
-.add-employee-page > * {
-    position: relative;
-    z-index: 1;
-}
-
-/* ─── Heading ────────────────────────────────────────── */
 .allemp-heading {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
     margin-bottom: 24px;
     padding-bottom: 16px;
-    border-bottom: 1px solid var(--smoke);
+    border-bottom: 1px solid var(--border);
 }
 
 .allemp-heading h5 {
-    font-family: 'Playfair Display', serif;
-    font-size: 26px;
+    font-size: 22px;
     font-weight: 700;
-    color: var(--black);
+    color: var(--text-primary);
     margin: 0;
-    letter-spacing: -0.4px;
-    line-height: 1;
 }
 
 .allemp-heading .record-count {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 2.5px;
+    font-size: 11px;
+    letter-spacing: 1px;
     text-transform: uppercase;
-    color: var(--silver);
+    color: var(--text-muted);
 }
 
-/* ─── Scrollable Container ───────────────────────────── */
 .table-div {
     height: 750px;
     padding: 0;
     overflow-y: scroll;
     scrollbar-width: none;
-    -ms-overflow-style: none;
 }
 
 .table-div::-webkit-scrollbar {
     display: none;
 }
 
-/* ─── Table ──────────────────────────────────────────── */
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 0;
-    background-color: var(--white);
-    border-radius: 0;
-    overflow: visible;
+    background: var(--bg-surface);
 }
 
-/* Sticky header */
 thead {
     position: sticky;
     top: 0;
@@ -110,106 +56,69 @@ thead {
 
 thead th {
     padding: 12px 14px;
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 2.5px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
     text-transform: uppercase;
-    color: var(--mid);
-    background: var(--off-white);
-    border-bottom: 2px solid var(--black);
+    color: var(--text-muted);
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border);
     text-align: left;
     white-space: nowrap;
 }
 
-thead th:first-child {
-    border-left: 3px solid var(--black);
-    padding-left: 16px;
-}
-
-/* Body rows */
 tbody tr {
-    border-bottom: 1px solid var(--smoke);
-    transition:
-        background var(--transition),
-        transform var(--transition);
+    border-bottom: 1px solid var(--border);
+    transition: background var(--transition);
 }
 
 tbody tr:hover {
-    background-color: var(--off-white);
-}
-
-/* zebra stripe */
-tbody tr:nth-child(even) {
-    background-color: #fafafa;
-}
-tbody tr:nth-child(even):hover {
-    background-color: var(--off-white);
+    background: var(--bg-surface-hover);
 }
 
 tbody td {
     padding: 13px 14px;
-    font-family: 'DM Mono', monospace;
     font-size: 13px;
-    color: var(--graphite);
+    color: var(--text-secondary);
     vertical-align: middle;
-    transition: color var(--transition);
 }
 
-tbody tr:first-child td:first-child {
-    border-left: 3px solid var(--black);
-    padding-left: 16px;
-}
-tbody tr td:first-child {
-    border-left: 3px solid transparent;
-    padding-left: 16px;
-    transition: border-color var(--transition);
-}
-tbody tr:hover td:first-child {
-    border-left-color: var(--black);
-}
-
-/* employee name — bolder */
 tbody td.emp-name {
-    font-weight: 500;
-    color: var(--black);
-    letter-spacing: 0.2px;
+    font-weight: 600;
+    color: var(--text-primary);
 }
 
-/* ID / code cells */
 tbody td.emp-id {
     font-size: 11px;
-    color: var(--silver);
-    letter-spacing: 1px;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
 }
 
-/* Status badge */
 .status-badge {
     display: inline-block;
-    padding: 3px 10px;
+    padding: 4px 10px;
     font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 1.5px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
     text-transform: uppercase;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--smoke);
-    color: var(--graphite);
-    background: var(--white);
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    background: var(--bg-primary);
 }
 
 .status-badge.active {
-    background: var(--black);
-    color: var(--white);
-    border-color: var(--black);
+    background: var(--success-bg);
+    color: var(--success);
+    border-color: rgba(74, 222, 128, 0.3);
 }
 
 .status-badge.inactive {
-    background: transparent;
-    color: var(--silver);
-    border-color: var(--smoke);
+    background: var(--danger-bg);
+    color: var(--danger);
+    border-color: rgba(248, 113, 113, 0.3);
 }
 
-/* ─── Action Buttons ─────────────────────────────────── */
 .action-cell {
     display: flex;
     gap: 6px;
@@ -218,103 +127,74 @@ tbody td.emp-id {
 
 .allemp-btn {
     padding: 6px 12px;
-    font-family: 'DM Mono', monospace;
     font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 1.5px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
     text-transform: uppercase;
-    border: 1px solid var(--smoke);
+    border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     cursor: pointer;
-    background: var(--white);
-    color: var(--graphite);
-    transition:
-        background var(--transition),
-        color var(--transition),
-        border-color var(--transition),
-        transform var(--transition);
+    background: var(--bg-primary);
+    color: var(--text-secondary);
+    transition: all var(--transition);
     white-space: nowrap;
 }
 
 .allemp-btn:hover {
     transform: translateY(-1px);
 }
+
 .allemp-btn:active {
     transform: translateY(0) scale(0.97);
 }
 
-/* Assign → fills black */
 .allemp-btn.assign {
-    border-color: var(--graphite);
-    color: var(--graphite);
+    border-color: var(--accent);
+    color: var(--accent);
 }
+
 .allemp-btn.assign:hover {
-    background: var(--black);
-    color: var(--white);
-    border-color: var(--black);
+    background: var(--accent);
+    color: #fff;
 }
 
-/* Edit → outlined mid */
 .allemp-btn.edit {
-    border-color: var(--smoke);
-    color: var(--mid);
+    border-color: var(--border-hover);
+    color: var(--text-secondary);
 }
+
 .allemp-btn.edit:hover {
-    background: var(--graphite);
-    color: var(--white);
-    border-color: var(--graphite);
+    background: var(--bg-elevated);
+    color: var(--text-primary);
 }
 
-/* Delete → ghost with strike feel */
 .allemp-btn.delete {
-    border-color: var(--smoke);
-    color: var(--silver);
-}
-.allemp-btn.delete:hover {
-    background: var(--charcoal);
-    color: var(--white);
-    border-color: var(--charcoal);
+    border-color: var(--border);
+    color: var(--text-muted);
 }
 
-/* ─── Empty State ────────────────────────────────────── */
+.allemp-btn.delete:hover {
+    background: var(--danger-bg);
+    color: var(--danger);
+    border-color: rgba(248, 113, 113, 0.3);
+}
+
 .empty-state {
     padding: 60px 0;
     text-align: center;
-    color: var(--silver);
+    color: var(--text-muted);
     font-size: 12px;
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
 }
 
-/* ─── Responsive ─────────────────────────────────────── */
 @media (max-width: 768px) {
     .add-employee-page {
         padding: 20px 16px;
     }
-
     .allemp-heading h5 {
-        font-size: 20px;
+        font-size: 18px;
     }
-
-    table {
-        font-size: 12px;
-    }
-
-    thead th {
-        font-size: 9px;
-        padding: 10px 10px;
-    }
-
-    tbody td {
-        padding: 10px;
-        font-size: 12px;
-    }
-
-    .allemp-btn {
-        font-size: 9px;
-        padding: 5px 8px;
-    }
-
     .table-div {
         height: auto;
         max-height: 70vh;

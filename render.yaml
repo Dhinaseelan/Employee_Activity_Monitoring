@@ -1,0 +1,30 @@
+services:
+  # Backend API (Node.js/Express)
+  - type: web
+    name: employee-monitoring-api
+    runtime: node
+    region: oregon
+    plan: free
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node app.js
+    envVars:
+      - key: MONGO_URI
+        sync: false  # Set manually in Render dashboard
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 4000
+
+  # Face Recognition Service (Python/Flask)
+  - type: web
+    name: face-recognition-api
+    runtime: python
+    region: oregon
+    plan: free
+    rootDir: face_recognition
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"

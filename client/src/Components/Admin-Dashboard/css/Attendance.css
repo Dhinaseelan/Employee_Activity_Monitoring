@@ -1,29 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@500;600;700&display=swap');
+/* Attendance — Dark Theme */
 
 .att-root {
-    font-family: 'Syne', sans-serif;
-    background: #f5f5f5;
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-primary);
     min-height: 100vh;
     padding: 0;
-    color: #111;
+    color: var(--text-primary);
 }
 
 .att-header {
-    background: #111;
-    padding: 1.1rem 1.75rem;
+    background: var(--bg-secondary);
+    padding: 1rem 1.75rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
     position: sticky;
     top: 0;
     z-index: 10;
+    border-bottom: 1px solid var(--border);
 }
 
 .att-header-title {
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 700;
     letter-spacing: 0.04em;
-    color: #fff;
+    color: var(--text-primary);
     margin: 0;
     display: flex;
     align-items: center;
@@ -34,22 +35,15 @@
 .att-pulse {
     width: 8px;
     height: 8px;
-    background: #fff;
+    background: var(--success);
     border-radius: 50%;
     display: inline-block;
     animation: att-pulse 2s ease-in-out infinite;
 }
 
 @keyframes att-pulse {
-    0%,
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-    50% {
-        opacity: 0.3;
-        transform: scale(0.65);
-    }
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(0.65); }
 }
 
 .att-stats {
@@ -58,18 +52,16 @@
 }
 
 .att-stat {
-    font-family: 'IBM Plex Mono', monospace;
     font-size: 11px;
     padding: 5px 12px;
-    border-radius: 3px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    color: rgba(255, 255, 255, 0.55);
-    background: rgba(255, 255, 255, 0.07);
-    letter-spacing: 0.04em;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    background: var(--bg-surface);
 }
 
 .att-stat span {
-    color: #fff;
+    color: var(--text-primary);
     font-weight: 600;
     margin-left: 4px;
 }
@@ -81,8 +73,8 @@
 }
 
 .att-left {
-    background: #fff;
-    border-right: 1px solid #e0e0e0;
+    background: var(--bg-secondary);
+    border-right: 1px solid var(--border);
     padding: 1.4rem 1.25rem;
     display: flex;
     flex-direction: column;
@@ -90,19 +82,18 @@
 }
 
 .att-section-label {
-    font-size: 9px;
+    font-size: 10px;
     font-weight: 600;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: #999;
-    font-family: 'IBM Plex Mono', monospace;
+    color: var(--text-muted);
     margin-bottom: 8px;
 }
 
 .att-camera-frame {
     background: #0d0d0d;
-    border-radius: 6px;
-    border: 1px solid #1a1a1a;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
     overflow: hidden;
     position: relative;
     aspect-ratio: 4/3;
@@ -115,58 +106,31 @@
     position: absolute;
     width: 18px;
     height: 18px;
-    border-color: #fff;
+    border-color: var(--accent);
     border-style: solid;
     opacity: 0.6;
     z-index: 5;
 }
 
-.att-corner.tl {
-    top: 10px;
-    left: 10px;
-    border-width: 2px 0 0 2px;
-}
-.att-corner.tr {
-    top: 10px;
-    right: 10px;
-    border-width: 2px 2px 0 0;
-}
-.att-corner.bl {
-    bottom: 10px;
-    left: 10px;
-    border-width: 0 0 2px 2px;
-}
-.att-corner.br {
-    bottom: 10px;
-    right: 10px;
-    border-width: 0 2px 2px 0;
-}
+.att-corner.tl { top: 10px; left: 10px; border-width: 2px 0 0 2px; }
+.att-corner.tr { top: 10px; right: 10px; border-width: 2px 2px 0 0; }
+.att-corner.bl { bottom: 10px; left: 10px; border-width: 0 0 2px 2px; }
+.att-corner.br { bottom: 10px; right: 10px; border-width: 0 2px 2px 0; }
 
 .att-scan-line {
     position: absolute;
     left: 0;
     right: 0;
     height: 2px;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.8),
-        transparent
-    );
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
     animation: att-scanmove 2.8s linear infinite;
     z-index: 4;
 }
 
 @keyframes att-scanmove {
-    0% {
-        top: 5%;
-    }
-    50% {
-        top: 95%;
-    }
-    100% {
-        top: 5%;
-    }
+    0% { top: 5%; }
+    50% { top: 95%; }
+    100% { top: 5%; }
 }
 
 .att-video-wrap {
@@ -203,15 +167,11 @@
     height: 100%;
 }
 
-.att-cam-placeholder svg {
-    opacity: 0.18;
-    color: #fff;
-}
+.att-cam-placeholder svg { opacity: 0.2; color: var(--text-muted); }
 
 .att-cam-placeholder-label {
-    font-family: 'IBM Plex Mono', monospace;
     font-size: 10px;
-    color: #666;
+    color: var(--text-muted);
     letter-spacing: 0.1em;
     text-transform: uppercase;
 }
@@ -228,33 +188,29 @@
 }
 
 .att-cam-badge {
-    font-family: 'IBM Plex Mono', monospace;
     font-size: 10px;
     background: rgba(0, 0, 0, 0.75);
-    color: #fff;
+    color: var(--text-primary);
     padding: 3px 8px;
-    border-radius: 3px;
-    letter-spacing: 0.08em;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    border: 1px solid var(--border);
 }
 
 .att-cam-rec {
     display: flex;
     align-items: center;
     gap: 6px;
-    font-family: 'IBM Plex Mono', monospace;
     font-size: 10px;
     background: rgba(0, 0, 0, 0.75);
-    color: #fff;
+    color: var(--text-primary);
     padding: 3px 8px;
-    border-radius: 3px;
-    letter-spacing: 0.06em;
+    border-radius: 4px;
 }
 
 .att-rec-dot {
     width: 6px;
     height: 6px;
-    background: #ff3b30;
+    background: var(--danger);
     border-radius: 50%;
     animation: att-pulse 1s ease-in-out infinite;
 }
@@ -267,51 +223,44 @@
 
 .att-btn {
     padding: 10px 0;
-    border-radius: 4px;
-    border: 1px solid #d0d0d0;
-    background: #fff;
-    color: #111;
-    font-family: 'Syne', sans-serif;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--bg-surface);
+    color: var(--text-secondary);
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
-    transition:
-        background 0.15s,
-        transform 0.1s;
+    transition: all var(--transition);
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 7px;
-    letter-spacing: 0.02em;
 }
 
 .att-btn:hover {
-    background: #f0f0f0;
-}
-.att-btn:active {
-    transform: scale(0.97);
+    background: var(--bg-surface-hover);
 }
 
 .att-btn-start {
-    background: #111;
-    border-color: #111;
+    background: var(--accent);
+    border-color: var(--accent);
     color: #fff;
 }
 
 .att-btn-start:hover {
-    background: #2a2a2a;
+    background: var(--accent-hover);
 }
 
 .att-btn-stop {
-    background: #fff;
-    border-color: #bbb;
-    color: #555;
+    background: var(--bg-primary);
+    border-color: var(--border);
+    color: var(--text-muted);
 }
 
 .att-detected-box {
-    background: #f7f7f7;
-    border: 1px solid #e8e8e8;
-    border-radius: 4px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
     padding: 10px 12px;
     min-height: 58px;
     display: flex;
@@ -321,38 +270,33 @@
 }
 
 .att-no-faces {
-    font-family: 'IBM Plex Mono', monospace;
     font-size: 11px;
-    color: #aaa;
-    letter-spacing: 0.04em;
+    color: var(--text-muted);
 }
 
 .att-face-chip {
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    font-family: 'IBM Plex Mono', monospace;
     font-size: 10px;
     font-weight: 500;
     padding: 4px 10px;
     border-radius: 20px;
-    letter-spacing: 0.04em;
 }
 
 .att-face-chip.known {
-    background: #111;
+    background: var(--accent);
     color: #fff;
-    border: 1px solid #111;
 }
 .att-face-chip.unknown {
-    background: #fff;
-    color: #555;
-    border: 1px solid #ccc;
+    background: var(--bg-surface);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
 }
 
 .att-right {
     padding: 1.4rem 1.5rem;
-    background: #f5f5f5;
+    background: var(--bg-primary);
     overflow-y: auto;
 }
 
@@ -369,23 +313,21 @@
 }
 
 .att-tab {
-    font-family: 'IBM Plex Mono', monospace;
     font-size: 11px;
     font-weight: 500;
     padding: 6px 14px;
     border-radius: 20px;
-    border: 1px solid #ccc;
-    background: #fff;
-    color: #888;
+    border: 1px solid var(--border);
+    background: var(--bg-surface);
+    color: var(--text-muted);
     cursor: pointer;
     transition: all 0.15s;
-    letter-spacing: 0.04em;
 }
 
 .att-tab.active {
-    background: #111;
+    background: var(--accent);
     color: #fff;
-    border-color: #111;
+    border-color: var(--accent);
 }
 
 .att-grid {
@@ -395,23 +337,21 @@
 }
 
 .att-emp-card {
-    background: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 6px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
     padding: 1rem;
-    transition:
-        border-color 0.2s,
-        box-shadow 0.2s;
+    transition: border-color 0.2s, box-shadow 0.2s;
     position: relative;
     overflow: hidden;
 }
 
 .att-emp-card.present {
-    border-left: 3px solid #111;
+    border-left: 3px solid var(--accent);
 }
 .att-emp-card.absent {
-    border-left: 3px solid #ddd;
-    opacity: 0.75;
+    border-left: 3px solid var(--border);
+    opacity: 0.6;
 }
 
 .att-scan-dot {
@@ -421,7 +361,7 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: #111;
+    background: var(--accent);
     animation: att-pulse 1.8s ease-in-out infinite;
 }
 
@@ -429,14 +369,14 @@
     width: 42px;
     height: 42px;
     border-radius: 50%;
-    background: #f0f0f0;
-    border: 1px solid #e0e0e0;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 700;
     font-size: 13px;
-    color: #555;
+    color: var(--text-muted);
     flex-shrink: 0;
     overflow: hidden;
 }
@@ -450,19 +390,18 @@
 .att-emp-name {
     font-size: 13px;
     font-weight: 600;
-    color: #111;
+    color: var(--text-primary);
     margin: 0 0 3px;
 }
+
 .att-emp-role {
     font-size: 10px;
-    color: #aaa;
-    font-family: 'IBM Plex Mono', monospace;
+    color: var(--text-muted);
     margin: 0;
     text-transform: uppercase;
 }
 
 .att-status-pill {
-    font-family: 'IBM Plex Mono', monospace;
     font-size: 9px;
     font-weight: 600;
     padding: 3px 9px;
@@ -471,24 +410,17 @@
 }
 
 .att-status-pill.present {
-    background: #111;
+    background: var(--accent);
     color: #fff;
 }
 .att-status-pill.absent {
-    background: #f0f0f0;
-    color: #aaa;
-    border: 1px solid #e0e0e0;
+    background: var(--bg-elevated);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
 }
 
 @media (max-width: 780px) {
-    .att-body {
-        grid-template-columns: 1fr;
-    }
-    .att-left {
-        border-right: none;
-        border-bottom: 1px solid #e0e0e0;
-    }
-    .att-stats {
-        display: none;
-    }
+    .att-body { grid-template-columns: 1fr; }
+    .att-left { border-right: none; border-bottom: 1px solid var(--border); }
+    .att-stats { display: none; }
 }

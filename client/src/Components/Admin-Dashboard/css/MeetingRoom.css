@@ -1,49 +1,45 @@
+/* Meeting Room — Dark Theme */
+
 .meeting-page {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background: var(--off-white);
-    font-family: inherit;
+    background: var(--bg-primary);
+    padding: 24px;
+    gap: 20px;
 }
 
-/* ── Header ── */
 .meeting-header {
-    background: var(--white);
-    padding: 24px 40px 0 40px;
-    border-bottom: 3px solid var(--black);
+    display: flex;
+    align-items: center;
+    padding: 0;
 }
 
 .meeting-header-top {
     display: flex;
     align-items: baseline;
     gap: 12px;
-    padding-bottom: 18px;
 }
 
 .meeting-header h4 {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 700;
-    color: var(--black);
+    color: var(--text-primary);
     margin: 0;
-    letter-spacing: -0.5px;
-    font-family: Georgia, 'Times New Roman', serif;
 }
 
 .meeting-header-tag {
     font-size: 11px;
     font-weight: 600;
-    color: var(--silver);
+    color: var(--text-muted);
     text-transform: uppercase;
-    letter-spacing: 1.5px;
-    font-family: inherit;
+    letter-spacing: 1.2px;
 }
 
-/* ── Body ── */
 .meeting-card-content {
     display: flex;
     flex-direction: column;
     flex: 1;
-    background: var(--off-white);
 }
 
 .meeting-form {
@@ -52,20 +48,20 @@
     flex: 1;
 }
 
-/* ── Grid Rows ── */
 .meeting-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 24px;
-    padding: 36px 40px;
-    background: var(--white);
-    border-bottom: 1px solid var(--smoke);
+    gap: 20px;
+    padding: 28px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
 }
 
 @media (max-width: 900px) {
     .meeting-grid {
         grid-template-columns: 1fr 1fr;
-        padding: 24px 20px;
+        padding: 20px;
     }
 }
 
@@ -75,105 +71,81 @@
     }
 }
 
-/* ── Full Width Row ── */
 .meeting-full-row {
-    padding: 36px 40px;
-    background: var(--white);
-    border-bottom: 1px solid var(--smoke);
+    padding: 28px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
 }
 
-@media (max-width: 600px) {
-    .meeting-full-row {
-        padding: 24px 20px;
-    }
-}
-
-/* ── Form Group ── */
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 7px;
+    gap: 6px;
 }
 
 .form-group label {
     font-size: 11px;
-    font-weight: 700;
-    color: var(--mid);
+    font-weight: 600;
+    color: var(--text-muted);
     text-transform: uppercase;
-    letter-spacing: 0.9px;
-    font-family: inherit;
+    letter-spacing: 0.8px;
 }
 
 .form-group input,
 .form-group select {
     width: 100%;
-    padding: 11px 14px;
-    border: 1px solid var(--smoke);
-    border-radius: var(--radius-md);
-    background: var(--off-white);
-    font-size: 14px;
-    font-family: inherit;
-    color: var(--black);
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg-primary);
+    font-size: 13px;
+    color: var(--text-primary);
     outline: none;
-    transition:
-        border var(--transition),
-        box-shadow var(--transition),
-        background var(--transition);
+    transition: border var(--transition), box-shadow var(--transition);
 }
 
 .form-group select {
     appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b6b6b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23818cf8' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    background-position: right 14px center;
-    background-color: var(--off-white);
-    padding-right: 36px;
+    background-position: right 12px center;
+    background-color: var(--bg-primary);
+    padding-right: 32px;
     cursor: pointer;
 }
 
 .form-group input::placeholder {
-    color: var(--silver);
+    color: var(--text-muted);
 }
 
 .form-group input:focus,
 .form-group select:focus {
-    border-color: var(--charcoal);
-    background-color: var(--white);
-    box-shadow: 0 0 0 3px rgba(10, 10, 10, 0.07);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-bg);
 }
 
-/* ── Footer Buttons ── */
 .meeting-btns {
     display: flex;
     gap: 10px;
     justify-content: flex-end;
-    padding: 24px 40px;
-    background: var(--white);
-    border-top: 1px solid var(--smoke);
-    margin-top: auto;
+    padding: 20px 0 0;
 }
 
 .btn-primary {
-    background: var(--black);
-    color: var(--white);
+    background: var(--accent);
+    color: #fff;
     border: none;
     padding: 11px 30px;
-    border-radius: var(--radius-md);
-    font-size: 14px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
     font-weight: 600;
-    font-family: inherit;
     cursor: pointer;
-    transition:
-        background var(--transition),
-        transform var(--transition);
+    transition: all var(--transition);
 }
 
 .btn-primary:hover {
-    background: var(--graphite);
+    background: var(--accent-hover);
     transform: translateY(-1px);
-}
-
-.btn-primary:active {
-    transform: translateY(0);
-    background: var(--charcoal);
+    box-shadow: 0 4px 16px rgba(129, 140, 248, 0.3);
 }

@@ -1,33 +1,21 @@
-/* ============================================================
-   Activity Monitoring — Light Theme
-   ============================================================ */
+/* Activity Monitoring — Dark Theme */
 
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-/* ── Root ── */
 .am-root {
     display: flex;
     flex-direction: column;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: #f4f6f9;
-    color: #1e293b;
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
     min-height: 100vh;
 }
 
-/* ── Header — dark/black theme ── */
 .am-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 16px 28px;
-    background: #0f172a;
-    border-bottom: 1px solid #1e293b;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border);
 }
 
 .am-header-left {
@@ -42,13 +30,12 @@
     gap: 10px;
     font-size: 17px;
     font-weight: 700;
-    color: #f8fafc;
-    letter-spacing: 0.3px;
+    color: var(--text-primary);
 }
 
 .am-header-sub {
     font-size: 12px;
-    color: #64748b;
+    color: var(--text-muted);
     padding-left: 20px;
 }
 
@@ -56,8 +43,8 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: #4ade80;
-    box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.2);
+    background: var(--success);
+    box-shadow: 0 0 0 3px var(--success-bg);
     display: inline-block;
     flex-shrink: 0;
 }
@@ -71,16 +58,16 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: #1e293b;
-    border: 1px solid #334155;
-    border-radius: 10px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
     padding: 8px 18px;
     min-width: 80px;
 }
 
 .am-hstat-label {
     font-size: 10px;
-    color: #64748b;
+    color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 600;
@@ -90,21 +77,19 @@
 .am-hstat-val {
     font-size: 16px;
     font-weight: 700;
-    color: #f1f5f9;
+    color: var(--text-primary);
 }
 
-/* ── Body ── */
 .am-body {
     display: flex;
     flex: 1;
 }
 
-/* ── Left Panel ── */
 .am-left {
     width: 290px;
     flex-shrink: 0;
-    background: #ffffff;
-    border-right: 1px solid #e4e8f0;
+    background: var(--bg-secondary);
+    border-right: 1px solid var(--border);
     display: flex;
     flex-direction: column;
 }
@@ -114,18 +99,17 @@
     font-weight: 700;
     letter-spacing: 1.2px;
     text-transform: uppercase;
-    color: #94a3b8;
+    color: var(--text-muted);
     padding: 14px 16px 10px;
-    border-bottom: 1px solid #f0f4f8;
+    border-bottom: 1px solid var(--border);
 }
 
-/* ── Camera Frame ── */
 .am-camera-frame {
     position: relative;
     margin: 14px;
-    background: #f0f4f8;
-    border-radius: 12px;
-    border: 1.5px solid #dde3ee;
+    background: var(--bg-primary);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
     overflow: hidden;
     aspect-ratio: 4 / 3;
     display: flex;
@@ -137,29 +121,13 @@
     position: absolute;
     width: 14px;
     height: 14px;
-    border-color: #3b82f6;
+    border-color: var(--accent);
     border-style: solid;
 }
-.am-corner.tl {
-    top: 7px;
-    left: 7px;
-    border-width: 2px 0 0 2px;
-}
-.am-corner.tr {
-    top: 7px;
-    right: 7px;
-    border-width: 2px 2px 0 0;
-}
-.am-corner.bl {
-    bottom: 7px;
-    left: 7px;
-    border-width: 0 0 2px 2px;
-}
-.am-corner.br {
-    bottom: 7px;
-    right: 7px;
-    border-width: 0 2px 2px 0;
-}
+.am-corner.tl { top: 7px; left: 7px; border-width: 2px 0 0 2px; }
+.am-corner.tr { top: 7px; right: 7px; border-width: 2px 2px 0 0; }
+.am-corner.bl { bottom: 7px; left: 7px; border-width: 0 0 2px 2px; }
+.am-corner.br { bottom: 7px; right: 7px; border-width: 0 2px 2px 0; }
 
 .am-scan-line {
     position: absolute;
@@ -167,22 +135,13 @@
     left: 0;
     right: 0;
     height: 2px;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(59, 130, 246, 0.4),
-        transparent
-    );
+    background: linear-gradient(90deg, transparent, rgba(129, 140, 248, 0.5), transparent);
     animation: am-scan 2.5s linear infinite;
 }
 
 @keyframes am-scan {
-    0% {
-        top: 0%;
-    }
-    100% {
-        top: 100%;
-    }
+    0% { top: 0%; }
+    100% { top: 100%; }
 }
 
 .am-video-wrap {
@@ -219,14 +178,14 @@
 }
 
 .am-cam-badge {
-    background: rgba(22, 163, 74, 0.12);
-    color: #16a34a;
+    background: var(--success-bg);
+    color: var(--success);
     font-size: 10px;
     font-weight: 700;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     padding: 2px 8px;
     border-radius: 4px;
-    border: 1px solid rgba(22, 163, 74, 0.3);
+    border: 1px solid rgba(74, 222, 128, 0.3);
 }
 
 .am-cam-rec {
@@ -234,9 +193,8 @@
     align-items: center;
     gap: 5px;
     font-size: 10px;
-    color: #475569;
-    letter-spacing: 1px;
-    background: rgba(255, 255, 255, 0.85);
+    color: var(--text-muted);
+    background: var(--bg-surface);
     padding: 2px 8px;
     border-radius: 4px;
     font-weight: 600;
@@ -246,18 +204,13 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: #ef4444;
+    background: var(--danger);
     animation: am-blink 1s ease-in-out infinite;
 }
 
 @keyframes am-blink {
-    0%,
-    100% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.2;
-    }
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
 }
 
 .am-cam-placeholder {
@@ -265,7 +218,7 @@
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    color: #b0bcd0;
+    color: var(--text-muted);
 }
 
 .am-cam-placeholder span {
@@ -275,27 +228,25 @@
     text-transform: uppercase;
 }
 
-/* ── Warning Banner ── */
 .am-warning-banner {
     margin: 0 14px 4px;
-    background: #fef2f2;
-    border: 1px solid #fca5a5;
-    border-radius: 8px;
+    background: var(--danger-bg);
+    border: 1px solid rgba(248, 113, 113, 0.3);
+    border-radius: var(--radius-sm);
     padding: 9px 14px;
     font-size: 13px;
     font-weight: 600;
-    color: #dc2626;
+    color: var(--danger);
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
-/* ── Controls ── */
 .am-controls {
     display: flex;
     gap: 8px;
     padding: 12px 14px;
-    border-top: 1px solid #f0f4f8;
+    border-top: 1px solid var(--border);
 }
 
 .am-btn {
@@ -304,12 +255,10 @@
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.8px;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     cursor: pointer;
     border: 1.5px solid;
-    transition:
-        background 0.15s,
-        opacity 0.15s;
+    transition: all 0.15s;
 }
 
 .am-btn:disabled {
@@ -318,26 +267,23 @@
 }
 
 .am-btn-start {
-    background: #f0fdf4;
-    color: #16a34a;
-    border-color: #86efac;
+    background: var(--success-bg);
+    color: var(--success);
+    border-color: rgba(74, 222, 128, 0.3);
 }
-
 .am-btn-start:not(:disabled):hover {
-    background: #dcfce7;
+    background: rgba(74, 222, 128, 0.2);
 }
 
 .am-btn-stop {
-    background: #fef2f2;
-    color: #dc2626;
-    border-color: #fca5a5;
+    background: var(--danger-bg);
+    color: var(--danger);
+    border-color: rgba(248, 113, 113, 0.3);
 }
-
 .am-btn-stop:not(:disabled):hover {
-    background: #fee2e2;
+    background: rgba(248, 113, 113, 0.2);
 }
 
-/* ── Confidence Bars ── */
 .am-conf-row {
     padding: 6px 14px 16px;
     display: flex;
@@ -350,13 +296,13 @@
     justify-content: space-between;
     font-size: 12px;
     font-weight: 500;
-    color: #475569;
+    color: var(--text-secondary);
     margin-bottom: 6px;
 }
 
 .am-bar-track {
     height: 6px;
-    background: #e9eef6;
+    background: var(--bg-elevated);
     border-radius: 4px;
 }
 
@@ -366,7 +312,6 @@
     transition: width 0.6s ease;
 }
 
-/* ── Right Panel ── */
 .am-right {
     flex: 1;
     display: flex;
@@ -374,20 +319,19 @@
     overflow: hidden;
 }
 
-/* ── Stat Cards ── */
 .am-stat-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 12px;
     padding: 16px;
-    border-bottom: 1px solid #e4e8f0;
-    background: #ffffff;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-surface);
 }
 
 .am-stat-card {
-    background: #f8fafc;
-    border-radius: 12px;
-    border: 1px solid #e4e8f0;
+    background: var(--bg-primary);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
     padding: 16px;
     display: flex;
     flex-direction: column;
@@ -399,41 +343,32 @@
     font-weight: 600;
     letter-spacing: 0.8px;
     text-transform: uppercase;
-    color: #94a3b8;
+    color: var(--text-muted);
 }
 
 .am-stat-val {
     font-size: 24px;
     font-weight: 700;
     line-height: 1;
+    color: var(--text-primary);
 }
 
 .am-stat-sub {
     font-size: 11px;
-    color: #94a3b8;
+    color: var(--text-muted);
     margin-top: 2px;
 }
 
-/* ── Status colours ── */
-.c-green {
-    color: #16a34a;
-}
-.c-red {
-    color: #dc2626;
-}
-.c-amber {
-    color: #d97706;
-}
-.c-muted {
-    color: #94a3b8;
-}
+.c-green { color: var(--success); }
+.c-red { color: var(--danger); }
+.c-amber { color: #fbbf24; }
+.c-muted { color: var(--text-muted); }
 
-/* ── Event Log ── */
 .am-log {
     flex: 1;
     padding: 18px 20px;
     overflow-y: auto;
-    background: #ffffff;
+    background: var(--bg-primary);
 }
 
 .am-log-header {
@@ -446,13 +381,13 @@
 .am-log-title {
     font-size: 13px;
     font-weight: 700;
-    color: #475569;
+    color: var(--text-secondary);
 }
 
 .am-log-count {
     font-size: 11px;
-    color: #94a3b8;
-    background: #f1f5f9;
+    color: var(--text-muted);
+    background: var(--bg-surface);
     border-radius: 20px;
     padding: 2px 10px;
 }
@@ -462,11 +397,10 @@
     align-items: center;
     gap: 12px;
     padding: 10px 12px;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     margin-bottom: 6px;
-    background: #f8fafc;
-    border: 1px solid #f0f4f8;
-    transition: background 0.1s;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
 }
 
 .am-event:last-child {
@@ -488,7 +422,7 @@
 .am-event-desc {
     font-size: 13px;
     font-weight: 500;
-    color: #334155;
+    color: var(--text-secondary);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -496,7 +430,7 @@
 
 .am-event-time {
     font-size: 11px;
-    color: #94a3b8;
+    color: var(--text-muted);
     margin-top: 2px;
     font-variant-numeric: tabular-nums;
 }
@@ -516,7 +450,7 @@
     align-items: center;
     justify-content: center;
     padding: 40px 20px;
-    color: #cbd5e1;
+    color: var(--text-muted);
     gap: 10px;
     text-align: center;
 }
