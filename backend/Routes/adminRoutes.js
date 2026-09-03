@@ -7,6 +7,28 @@ const Project = require('../Models/projectAssignSchema');
 const Admin = require('../Models/userSchema');
 const { store, isDbUp, genId } = require('../fallbackStore');
 
+// ── REGISTER (create admin) ──
+router.post('/register', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        if (!email || !password) return res.status(400).json({ message: 'Email and password required' });
+
+        if (!isDbUp()) {
+            return res.status(503).json({ message: 'DB not available, use fallback admin' });
+        }
+
+        const existing = await Admin.findOne({ email });
+        if (existing) return res.status(409).json({ message: 'User already exists' });
+
+        const user = new Admin({ email, password });
+        await user.save();
+        res.status(201).json({ message: 'Admin created', user: { email: user.email, _id: user._id } });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Registration error' });
+    }
+});
+
 // ── LOGIN ──
 router.post('/login', async (req, res) => {
     console.log(req.body);
