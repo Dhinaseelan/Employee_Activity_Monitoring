@@ -31,13 +31,21 @@ const Attendance = () => {
     const getImageSrc = (image) => {
         if (!image?.data) return null;
         try {
-            const base64 = btoa(
-                new Uint8Array(image.data.data).reduce(
-                    (d, b) => d + String.fromCharCode(b),
-                    '',
-                ),
-            );
-            return `data:${image.contentType};base64,${base64}`;
+            // Fallback store: data is a base64 string
+            if (typeof image.data === 'string') {
+                return `data:${image.contentType};base64,${image.data}`;
+            }
+            // MongoDB: data.data is a Buffer
+            if (image.data.data) {
+                const base64 = btoa(
+                    new Uint8Array(image.data.data).reduce(
+                        (d, b) => d + String.fromCharCode(b),
+                        '',
+                    ),
+                );
+                return `data:${image.contentType};base64,${base64}`;
+            }
+            return null;
         } catch {
             return null;
         }
@@ -45,6 +53,10 @@ const Attendance = () => {
 
     const startCamera = async () => {
         try {
+            if (!navigator.mediaDevices?.getUserMedia) {
+                alert('Camera requires HTTPS. Please use the deployed site or localhost.');
+                return;
+            }
             const stream = await navigator.mediaDevices.getUserMedia({
                 video: {
                     width: { ideal: 640 },
@@ -66,7 +78,7 @@ const Attendance = () => {
             }
         } catch (err) {
             console.error('Camera access error:', err);
-            alert('Please allow camera access in browser settings.');
+            alert('Camera access denied. Please allow camera permission in your browser settings.');
         }
     };
 

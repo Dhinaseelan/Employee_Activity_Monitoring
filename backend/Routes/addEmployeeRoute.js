@@ -55,7 +55,7 @@ router.post('/', upload.array('images', 3), async (req, res) => {
                 role: req.body.role,
                 address,
                 images: images.map(img => ({
-                    data: img.data.toString('base64').slice(0, 50) + '...',
+                    data: img.data.toString('base64'),
                     contentType: img.contentType,
                 })),
                 isPresent: false,

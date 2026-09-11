@@ -4,6 +4,8 @@ const axios = require('axios');
 const Attendance = require('../Models/attendanceSchema');
 const { store, isDbUp } = require('../fallbackStore');
 
+const FACE_API_URL = process.env.FACE_API_URL || 'http://127.0.0.1:5001';
+
 // In-memory attendance for fallback mode
 if (!store.attendance) store.attendance = [];
 
@@ -16,7 +18,7 @@ router.post('/', async (req, res) => {
         // Try calling the Python face recognition service
         try {
             const pyRes = await axios.post(
-                'http://127.0.0.1:5001/api/face-recognize',
+                `${FACE_API_URL}/api/face-recognize`,
                 { image },
                 { timeout: 5000 },
             );

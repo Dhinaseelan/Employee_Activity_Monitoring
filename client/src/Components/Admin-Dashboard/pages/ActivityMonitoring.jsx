@@ -130,6 +130,10 @@ const ActivityMonitoring = () => {
             setWarning('MediaPipe libraries not loaded. Please refresh the page.');
             return;
         }
+        if (!window.isSecureContext) {
+            setWarning('Camera requires HTTPS. Please use the deployed site or localhost.');
+            return;
+        }
 
         workingTicksRef.current = 0;
         totalTicksRef.current = 0;

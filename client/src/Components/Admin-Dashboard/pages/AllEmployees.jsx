@@ -10,16 +10,22 @@ const AllEmployees = () => {
 
     const getImageSrc = (image) => {
         if (!image || !image.data) return null;
-
         try {
-            const base64String = btoa(
-                new Uint8Array(image.data.data).reduce(
-                    (data, byte) => data + String.fromCharCode(byte),
-                    '',
-                ),
-            );
-
-            return `data:${image.contentType};base64,${base64String}`;
+            // Fallback store: data is a base64 string
+            if (typeof image.data === 'string') {
+                return `data:${image.contentType};base64,${image.data}`;
+            }
+            // MongoDB: data.data is a Buffer
+            if (image.data.data) {
+                const base64String = btoa(
+                    new Uint8Array(image.data.data).reduce(
+                        (data, byte) => data + String.fromCharCode(byte),
+                        '',
+                    ),
+                );
+                return `data:${image.contentType};base64,${base64String}`;
+            }
+            return null;
         } catch (err) {
             console.error('Image conversion error:', err);
             return null;
