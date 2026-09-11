@@ -245,29 +245,9 @@
 }
 
 
-/* ── Sidebar Close Button (mobile) ── */
-.sidebar-close {
+/* ── Sidebar Close Button (fixed overlay) ── */
+.sidebar-close-fixed {
     display: none;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 32px;
-    height: 32px;
-    background: #f0f0f0;
-    border: 1px solid #ccc;
-    color: #333;
-    font-size: 18px;
-    cursor: pointer;
-    border-radius: 50%;
-    z-index: 110;
-    align-items: center;
-    justify-content: center;
-}
-
-.sidebar-close:hover {
-    color: #c00;
-    background: #fde8e8;
-    border-color: #c00;
 }
 
 /* ── Sidebar Backdrop (mobile) ── */
@@ -276,12 +256,6 @@
 }
 
 @media (max-width: 991px) {
-    .sidebar-close {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
     .sidebar-backdrop {
         display: block;
         position: fixed;
@@ -291,6 +265,31 @@
         bottom: 0;
         background: rgba(0, 0, 0, 0.5);
         z-index: 99;
+    }
+
+    .sidebar-close-fixed {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 12px;
+        left: 220px;
+        width: 36px;
+        height: 36px;
+        background: #f0f0f0;
+        border: 2px solid #ccc;
+        color: #333;
+        font-size: 18px;
+        cursor: pointer;
+        border-radius: 50%;
+        z-index: 110;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    .sidebar-close-fixed:hover {
+        color: #c00;
+        background: #fde8e8;
+        border-color: #c00;
     }
 
     .aside {

@@ -24,8 +24,12 @@ const DashBoard = () => {
             </div>
 
             {asideOpen && <div className="sidebar-backdrop" onClick={handleClick} />}
+            {asideOpen && (
+                <button className="sidebar-close-fixed" onClick={handleClick} aria-label="Close sidebar">
+                    <RxCross2 />
+                </button>
+            )}
             <aside className={`sidebar ${asideOpen ? 'open' : ''}`}>
-                <button className="sidebar-close" onClick={handleClick}><RxCross2 /></button>
                 <div className="sidebar-logo">
                     <img src={rmsLogo} alt="logo" className="logo-img" />
                 </div>

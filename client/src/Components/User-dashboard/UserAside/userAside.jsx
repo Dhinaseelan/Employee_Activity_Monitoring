@@ -22,11 +22,15 @@ const UserAside = () => {
                 </p>
             </div>
 {asideOpen && <div className="sidebar-backdrop" onClick={handleClick} />}
+            {asideOpen && (
+                <button className="sidebar-close-fixed" onClick={handleClick} aria-label="Close sidebar">
+                    <RxCross2 />
+                </button>
+            )}
             <aside
                 className={`aside col-3 col-lg-2 ${
                     asideOpen ? 'open' : ''
                 } d-lg-block`}>
-                <button className="sidebar-close" onClick={handleClick}><RxCross2 /></button>
                 <div className="logo-section">
                     <img className="logo" src={rmsLogo} alt="logo" />
                 </div>
