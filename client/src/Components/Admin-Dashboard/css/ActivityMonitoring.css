@@ -458,3 +458,66 @@
 .am-empty-log p {
     font-size: 13px;
 }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+    .am-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 14px 16px;
+    }
+
+    .am-header-stats {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .am-hstat {
+        padding: 6px 12px;
+        min-width: 0;
+        flex: 1;
+    }
+
+    .am-body {
+        flex-direction: column;
+    }
+
+    .am-left {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .am-stat-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .am-camera-frame {
+        margin: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .am-header-title {
+        font-size: 15px;
+    }
+
+    .am-stat-grid {
+        grid-template-columns: 1fr;
+        padding: 12px;
+        gap: 8px;
+    }
+
+    .am-stat-card {
+        padding: 12px;
+    }
+
+    .am-stat-val {
+        font-size: 20px;
+    }
+
+    .am-event-desc {
+        font-size: 12px;
+    }
+}

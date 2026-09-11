@@ -164,7 +164,9 @@
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    width: 480px;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 16px;
     padding: 16px 20px;
     background: var(--bg-elevated);
     border-radius: var(--radius-md);
