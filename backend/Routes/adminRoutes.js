@@ -40,20 +40,22 @@ router.post('/login', async (req, res) => {
             password: 'admin123',
         };
 
+        // Always check fallback admin first (works with or without DB)
+        if (email === FALLBACK_ADMIN.email && password === FALLBACK_ADMIN.password) {
+            console.log('Using fallback admin');
+            return res.json({
+                userType: 'admin',
+                user: { email: FALLBACK_ADMIN.email, _id: 'fallback-admin' },
+            });
+        }
+
+        // Check fallback employees (in-memory store from previous adds)
+        const fallbackEmp = store.employees.find(e => e.email === email);
+        if (fallbackEmp && fallbackEmp.password === password) {
+            return res.json({ userType: fallbackEmp.role?.toLowerCase() || 'employee', user: fallbackEmp });
+        }
+
         if (!isDbUp()) {
-            // Check fallback admin
-            if (email === FALLBACK_ADMIN.email && password === FALLBACK_ADMIN.password) {
-                console.log('Using fallback admin (DB not connected)');
-                return res.json({
-                    userType: 'admin',
-                    user: { email: FALLBACK_ADMIN.email, _id: 'fallback-admin' },
-                });
-            }
-            // Check fallback employees
-            const emp = store.employees.find(e => e.email === email);
-            if (emp && emp.password === password) {
-                return res.json({ userType: emp.role?.toLowerCase() || 'employee', user: emp });
-            }
             return res.status(401).json({ message: 'Invalid email or password' });
         }
 
