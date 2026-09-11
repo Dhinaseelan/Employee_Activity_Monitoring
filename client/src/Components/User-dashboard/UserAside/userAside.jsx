@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import './userAside.css';
 import rmsLogo from '../../Admin-Dashboard/assets/images/logo.png';
 import { IoPersonCircleOutline } from 'react-icons/io5';
 import { TbLogout2 } from 'react-icons/tb';
 import { BsCollectionFill } from 'react-icons/bs';
 import { RiUserSettingsFill } from 'react-icons/ri';
 import { RiDashboardHorizontalLine } from 'react-icons/ri';
-import { RxHamburgerMenu } from 'react-icons/rx';
+import { RxHamburgerMenu, RxCross2 } from 'react-icons/rx';
 import AnotherContext from '../../../Context/AdminContext/AnotherContext';
 
 const UserAside = () => {
@@ -20,11 +21,12 @@ const UserAside = () => {
                     <RxHamburgerMenu />
                 </p>
             </div>
+{asideOpen && <div className="sidebar-backdrop" onClick={handleClick} />}
             <aside
                 className={`aside col-3 col-lg-2 ${
                     asideOpen ? 'open' : ''
-                } d-lg-block`}
-            >
+                } d-lg-block`}>
+                <button className="sidebar-close" onClick={handleClick}><RxCross2 /></button>
                 <div className="logo-section">
                     <img className="logo" src={rmsLogo} alt="logo" />
                 </div>

@@ -7,7 +7,7 @@ import { TbLogout2 } from 'react-icons/tb';
 import { BsCollectionFill } from 'react-icons/bs';
 import { RiUserSettingsFill } from 'react-icons/ri';
 import { RiDashboardHorizontalLine } from 'react-icons/ri';
-import { RxHamburgerMenu } from 'react-icons/rx';
+import { RxHamburgerMenu, RxCross2 } from 'react-icons/rx';
 import AnotherContext from '../../../Context/AdminContext/AnotherContext';
 
 const ManagerAside = () => {
@@ -21,11 +21,12 @@ const ManagerAside = () => {
                     <RxHamburgerMenu />
                 </p>
             </div>
+            {asideOpen && <div className="sidebar-backdrop" onClick={handleClick} />}
             <aside
                 className={`aside col-3 col-lg-2 ${
                     asideOpen ? 'open' : ''
-                } d-lg-block`}
-            >
+                } d-lg-block`}>
+                <button className="sidebar-close" onClick={handleClick}><RxCross2 /></button>
                 <div className="logo-section">
                     <img className="logo" src={rmsLogo} alt="logo" />
                 </div>

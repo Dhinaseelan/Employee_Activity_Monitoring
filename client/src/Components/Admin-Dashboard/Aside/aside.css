@@ -696,3 +696,51 @@ body {
     text-decoration: none;
     color: inherit;
 }
+
+
+/* ── Sidebar Close Button (mobile) ── */
+.sidebar-close {
+    display: none;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+    z-index: 101;
+    transition: color var(--transition);
+}
+
+.sidebar-close:hover {
+    color: var(--text-primary);
+    background: var(--bg-surface);
+}
+
+/* ── Sidebar Backdrop (mobile) ── */
+.sidebar-backdrop {
+    display: none;
+}
+
+@media (max-width: 991px) {
+    .sidebar-close {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .sidebar-backdrop {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 99;
+        animation: fadeIn 0.2s ease;
+    }
+}

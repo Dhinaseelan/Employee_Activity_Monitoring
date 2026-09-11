@@ -243,3 +243,59 @@
     color: rgb(158, 97, 97);
     padding: 1.2em 1.8em;
 }
+
+
+/* ── Sidebar Close Button (mobile) ── */
+.sidebar-close {
+    display: none;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 8px;
+    z-index: 101;
+}
+
+.sidebar-close:hover {
+    color: #333;
+    background: #e8e8e8;
+}
+
+/* ── Sidebar Backdrop (mobile) ── */
+.sidebar-backdrop {
+    display: none;
+}
+
+@media (max-width: 991px) {
+    .sidebar-close {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .sidebar-backdrop {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 99;
+    }
+
+    .aside {
+        position: fixed;
+        z-index: 100;
+        background: #f9f9f9;
+    }
+
+    .aside.open {
+        transform: translateX(0);
+    }
+}

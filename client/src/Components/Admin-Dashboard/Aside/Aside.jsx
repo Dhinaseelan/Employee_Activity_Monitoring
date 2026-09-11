@@ -7,7 +7,7 @@ import { TbLogout2 } from 'react-icons/tb';
 import { BsFilePerson, BsCollectionFill } from 'react-icons/bs';
 import { FaCalendarAlt } from 'react-icons/fa';
 import { RiUserSettingsFill, RiDashboardHorizontalLine } from 'react-icons/ri';
-import { RxHamburgerMenu } from 'react-icons/rx';
+import { RxHamburgerMenu, RxCross2 } from 'react-icons/rx';
 import { LuCctv } from 'react-icons/lu';
 import AnotherContext from '../../../Context/AdminContext/AnotherContext';
 
@@ -23,7 +23,9 @@ const DashBoard = () => {
                 </button>
             </div>
 
+            {asideOpen && <div className="sidebar-backdrop" onClick={handleClick} />}
             <aside className={`sidebar ${asideOpen ? 'open' : ''}`}>
+                <button className="sidebar-close" onClick={handleClick}><RxCross2 /></button>
                 <div className="sidebar-logo">
                     <img src={rmsLogo} alt="logo" className="logo-img" />
                 </div>
