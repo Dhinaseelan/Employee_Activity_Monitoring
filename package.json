@@ -1,0 +1,10 @@
+{
+  "name": "employee-activity-monitoring",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "cd client && npm run build",
+    "dev": "cd client && npm run dev",
+    "preview": "cd client && npm run preview"
+  }
+}
