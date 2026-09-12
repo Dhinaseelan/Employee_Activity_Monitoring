@@ -5,6 +5,9 @@ import { useNavigate } from 'react-router-dom';
 
 const AnotherContext = createContext({});
 
+// Fallback API URL — used when VITE_API_URL env var is not set
+const API_BASE = import.meta.env.VITE_API_URL || 'https://employee-monitoring-api.onrender.com';
+
 export const DataProviderTwo = ({ children }) => {
     const navigate = useNavigate();
     const [showEmployee, setShowEmployee] = useState(false);
@@ -45,7 +48,7 @@ export const DataProviderTwo = ({ children }) => {
 
         try {
             const response = await axios.put(
-                `${import.meta.env.VITE_API_URL}/project/attendance/${id}`,
+                `${API_BASE}/project/attendance/${id}`,
                 { isPresent: updatedStatus },
             );
             console.log('Attendance updated successfully:', response.data);
@@ -70,7 +73,7 @@ export const DataProviderTwo = ({ children }) => {
     const handleRoomDelete = (empId) => {
         axios
             .delete(
-                `${import.meta.env.VITE_API_URL}/project/booked-room/${empId}`,
+                `${API_BASE}/project/booked-room/${empId}`,
             )
             .then((res) => {
                 AllMeetingRooms();
@@ -139,7 +142,7 @@ export const DataProviderTwo = ({ children }) => {
 
         try {
             const assignResponse = await axios.post(
-                `${import.meta.env.VITE_API_URL}/project/assignproject`,
+                `${API_BASE}/project/assignproject`,
                 assignFormData,
             );
 
@@ -153,7 +156,7 @@ export const DataProviderTwo = ({ children }) => {
                 await new Promise((resolve) => setTimeout(resolve, 1000));
 
                 const notifyResponse = await axios.post(
-                    `${import.meta.env.VITE_API_URL}/project/notify-manager-and-employees`,
+                    `${API_BASE}/project/notify-manager-and-employees`,
                     {
                         project: assignFormData,
                         manager: assignFormData.managerName,
@@ -205,7 +208,7 @@ export const DataProviderTwo = ({ children }) => {
         const fetchAssignedProjects = async () => {
             try {
                 const response = await axios.get(
-                    `${import.meta.env.VITE_API_URL}/project/assignedprojects`,
+                    `${API_BASE}/project/assignedprojects`,
                 );
                 setAssignedProjects(response.data);
             } catch (error) {
@@ -222,7 +225,7 @@ export const DataProviderTwo = ({ children }) => {
         const fetchBookedRooms = async () => {
             try {
                 const response = await axios.get(
-                    `${import.meta.env.VITE_API_URL}/project/booked-rooms`,
+                    `${API_BASE}/project/booked-rooms`,
                 );
                 setBookedRooms(response.data);
             } catch (error) {

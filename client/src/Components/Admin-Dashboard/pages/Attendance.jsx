@@ -4,6 +4,8 @@ import DataContext from '../../../Context/AdminContext/Datacontext';
 import AnotherContext from '../../../Context/AdminContext/AnotherContext';
 import '../../Admin-Dashboard/css/Attendance.css';
 
+const API_BASE = import.meta.env.VITE_API_URL || 'https://employee-monitoring-api.onrender.com';
+
 const Attendance = () => {
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
@@ -109,7 +111,7 @@ const Attendance = () => {
             const image = canvas.toDataURL('image/jpeg', 0.6);
             try {
                 const res = await axios.post(
-                    `${import.meta.env.VITE_API_URL}/api/face-recognize`,
+                    `${API_BASE}/api/face-recognize`,
                     { image },
                 );
                 const detected = res.data.results || [];

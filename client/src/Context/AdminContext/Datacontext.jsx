@@ -4,6 +4,9 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 const DataContext = createContext({});
 
+// Fallback API URL — used when VITE_API_URL env var is not set (e.g. Vercel)
+const API_BASE = import.meta.env.VITE_API_URL || 'https://employee-monitoring-api.onrender.com';
+
 export const DataProvider = ({ children }) => {
     const navigate = useNavigate();
     const location = useLocation();
@@ -86,8 +89,8 @@ export const DataProvider = ({ children }) => {
 
         try {
             const endpoint = location.state?.employeeId
-                ? `${import.meta.env.VITE_API_URL}/fun/update`
-                : `${import.meta.env.VITE_API_URL}/api/add-employee`;
+                ? `${API_BASE}/fun/update`
+                : `${API_BASE}/api/add-employee`;
 
             const formData = new FormData();
 
@@ -190,7 +193,7 @@ export const DataProvider = ({ children }) => {
         });
         try {
             const response = await axios.post(
-                `${import.meta.env.VITE_API_URL}/fun/project`,
+                `${API_BASE}/fun/project`,
                 project,
             );
             console.log(response.data);
@@ -238,7 +241,7 @@ export const DataProvider = ({ children }) => {
 
     const allUser = () => {
         axios
-            .get(`${import.meta.env.VITE_API_URL}/fun/alluser`)
+            .get(`${API_BASE}/fun/alluser`)
             .then((res) => {
                 if (res.data && res.data.allEmployees) {
                     const managers = res.data.allEmployees.filter(
@@ -272,7 +275,7 @@ export const DataProvider = ({ children }) => {
 
     const handleEmployeeDelete = (empId) => {
         axios
-            .delete(`${import.meta.env.VITE_API_URL}/fun/employee/${empId}`)
+            .delete(`${API_BASE}/fun/employee/${empId}`)
             .then((res) => {
                 console.log('Employee Deleted Successfully');
                 allUser();
@@ -284,7 +287,7 @@ export const DataProvider = ({ children }) => {
 
     const handleProjectDelete = (empId) => {
         axios
-            .delete(`${import.meta.env.VITE_API_URL}/fun/project/${empId}`)
+            .delete(`${API_BASE}/fun/project/${empId}`)
             .then((res) => {
                 console.log('Employee Deleted Successfully');
                 allprojects();
@@ -313,10 +316,10 @@ export const DataProvider = ({ children }) => {
 
         console.log('hi hello');
 
-        console.log('API URL:', import.meta.env.VITE_API_URL);
+        console.log('API URL:', API_BASE);
         try {
             const response = await axios.post(
-                `${import.meta.env.VITE_API_URL}/fun/login`,
+                `${API_BASE}/fun/login`,
                 input,
             );
 
@@ -372,7 +375,7 @@ export const DataProvider = ({ children }) => {
 
     const allprojects = () => {
         axios
-            .get(`${import.meta.env.VITE_API_URL}/fun/allprojects`)
+            .get(`${API_BASE}/fun/allprojects`)
             .then((res) => {
                 if (res.data && res.data.allProjects) {
                     setProjectList(res.data.allProjects);
@@ -403,7 +406,7 @@ export const DataProvider = ({ children }) => {
         });
         try {
             const response = await axios.post(
-                `${import.meta.env.VITE_API_URL}/project/room-booking`,
+                `${API_BASE}/project/room-booking`,
                 bookRoom,
             );
 
