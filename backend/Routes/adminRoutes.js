@@ -59,11 +59,20 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({ message: 'Invalid email or password' });
         }
 
-        const user = await Admin.findOne({ email });
+        // Check Admin collection first
+        let user = await Admin.findOne({ email });
+        let userType = 'admin';
+
+        // If not found in Admin, check Employee collection
+        if (!user) {
+            user = await Employee.findOne({ email });
+            userType = user?.role?.toLowerCase() || 'employee';
+        }
+
         console.log(user);
         if (!user) return res.status(404).json({ message: 'User not found' });
         if (user.password !== password) return res.status(401).json({ message: 'Invalid password' });
-        res.json({ userType: 'admin', user });
+        res.json({ userType, user });
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Login error' });

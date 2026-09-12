@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 const DataContext = createContext({});
 
 // Fallback API URL — used when VITE_API_URL env var is not set (e.g. Vercel)
-const API_BASE = import.meta.env.VITE_API_URL || 'https://employee-monitoring-api.onrender.com';
+const API_BASE = import.meta.env.VITE_API_URL || 'https://employee-activity-monitoring-api.onrender.com';
 
 export const DataProvider = ({ children }) => {
     const navigate = useNavigate();

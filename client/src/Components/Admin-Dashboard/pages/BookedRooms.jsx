@@ -5,7 +5,7 @@ import { FaTrash } from 'react-icons/fa6';
 import axios from 'axios';
 import AnotherContext from '../../../Context/AdminContext/AnotherContext';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'https://employee-monitoring-api.onrender.com';
+const API_BASE = import.meta.env.VITE_API_URL || 'https://employee-activity-monitoring-api.onrender.com';
 
 const AllMeetingRooms = () => {
     const { handleRoomDelete } = useContext(AnotherContext);

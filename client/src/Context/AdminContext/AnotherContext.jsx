@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const AnotherContext = createContext({});
 
 // Fallback API URL — used when VITE_API_URL env var is not set
-const API_BASE = import.meta.env.VITE_API_URL || 'https://employee-monitoring-api.onrender.com';
+const API_BASE = import.meta.env.VITE_API_URL || 'https://employee-activity-monitoring-api.onrender.com';
 
 export const DataProviderTwo = ({ children }) => {
     const navigate = useNavigate();
