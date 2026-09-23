@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import '../Login-page/login-page.css';
 import DataContext from '../Context/AdminContext/Datacontext';
 import { FiMail, FiLock, FiEye, FiEyeOff } from 'react-icons/fi';
+import NetworkBackground from '../Components/3D/NetworkBackground';
 
 const Loginpage = () => {
     const { handleChange, handleLogin, error } = useContext(DataContext);
@@ -18,10 +19,10 @@ const Loginpage = () => {
         <div className="login-page">
             {/* Left branding panel */}
             <div className="login-branding">
+                <NetworkBackground />
                 <div className="branding-content">
                     <div className="brand-logo">
                         <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                            <rect width="48" height="48" rx="12" fill="rgba(255,255,255,0.15)" />
                             <path d="M14 34V22C14 17.5817 17.5817 14 22 14H26C30.4183 14 34 17.5817 34 22V34" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
                             <circle cx="24" cy="24" r="4" stroke="white" strokeWidth="2" />
                             <path d="M20 34H28" stroke="white" strokeWidth="2" strokeLinecap="round" />

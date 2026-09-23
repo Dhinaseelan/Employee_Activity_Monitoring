@@ -1,4 +1,5 @@
 import './App.css';
+import './design-system.css';
 import AdminRoot from './Root/Root';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ManagerRoot from './Root/RootTwo';

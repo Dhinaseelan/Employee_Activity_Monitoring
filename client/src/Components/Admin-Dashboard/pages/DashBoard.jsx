@@ -26,7 +26,11 @@ const DashBoard = () => {
             {/* ── Header ── */}
             <div className="dashboard-header">
                 <div className="dashboard-header-top">
-                    <h4>Dashboard</h4>
+                    <div>
+                        <span className="dashboard-eyebrow">Operations overview</span>
+                        <h4>Good morning, Admin</h4>
+                        <p className="dashboard-intro">Here is the current picture of your team and workspace.</p>
+                    </div>
                     <span className="dashboard-header-tag">— Overview</span>
                 </div>
             </div>

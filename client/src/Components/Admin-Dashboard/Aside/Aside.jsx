@@ -1,14 +1,13 @@
 import React, { useContext } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import './aside.css';
-import rmsLogo from '../assets/images/logo.png';
 import { IoPersonCircleOutline } from 'react-icons/io5';
 import { TbLogout2 } from 'react-icons/tb';
 import { BsFilePerson, BsCollectionFill } from 'react-icons/bs';
 import { FaCalendarAlt } from 'react-icons/fa';
 import { RiUserSettingsFill, RiDashboardHorizontalLine } from 'react-icons/ri';
 import { RxHamburgerMenu, RxCross2 } from 'react-icons/rx';
-import { LuCctv } from 'react-icons/lu';
+import { LuCctv, LuActivity } from 'react-icons/lu';
 import AnotherContext from '../../../Context/AdminContext/AnotherContext';
 
 const DashBoard = () => {
@@ -31,7 +30,10 @@ const DashBoard = () => {
             )}
             <aside className={`sidebar ${asideOpen ? 'open' : ''}`}>
                 <div className="sidebar-logo">
-                    <img src={rmsLogo} alt="logo" className="logo-img" />
+                    <div className="sidebar-brand" aria-label="PeopleOps">
+                        <span className="sidebar-brand-mark"><LuActivity /></span>
+                        <span>PeopleOps</span>
+                    </div>
                 </div>
 
                 <hr className="sidebar-divider" />
